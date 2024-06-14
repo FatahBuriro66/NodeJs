@@ -1,9 +1,7 @@
 const cron = require('node-cron')
 
-const dummyJOb2 = cron.schedule('*****', () => {
-    console.log("Hi from Dummy JSON")
-})
+const dummyJob2 = cron.schedule('* * * * *', () => {
+    console.log('running a task every minute');
+});
 
-module.exports = {
-    dummyJOb2
-}
+module.exports = dummyJob2
