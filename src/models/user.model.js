@@ -32,12 +32,17 @@ UserSchema.pre('save', function (next) {
     console.log("Schema", this);
     if (this.otp) {
         this.otp = generateOTP()
-        const payload = sendEmail({
+        const payload = {
             to: this.email,
             subject: "your OTP ",
             text: `your OTP is ${this.otp} `
-        }).then(res => console.log(`Success sending email to ${this.email}`))
-            .catch(err => console.log(`Error sending to email ${this.email}`))
+        }
+        // sendEmail({
+        //     to: this.email,
+        //     subject: "your OTP ",
+        //     text: `your OTP is ${this.otp} `
+        // }).then(res => console.log(`Success sending email to ${this.email}`))
+        //     .catch(err => console.log(`Error sending to email ${this.email}`))
     }
 
     next()
