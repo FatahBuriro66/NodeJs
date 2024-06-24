@@ -1,6 +1,4 @@
-// const db = require('../models/index.js')
 const db = require('../models/index.js')
-const UserModel = require('../models/user.model.js')
 const { user: User, token: Token } = db
 
 const findByEmail = async (email) => {
@@ -22,17 +20,18 @@ const createUser = async (payload) => {
     }
 }
 
-const updateUserByEmail = async (email) => {
+const UpdateUserByEmail = async (email) => {
     try {
-        const user = await User.updateOne(
-            { email: email }, // filter 
-            { isActive: true }// date to update 
+        const response = await User.updateOne(
+            { email: email },// filter,
+            { isActive: true } // data to update
         )
-        return user
+        return response
     } catch (error) {
         throw error
     }
 }
+
 const saveToken = async (payload) => {
     try {
         const newToken = new Token({ ...payload })
@@ -60,11 +59,12 @@ const deleteTokensByUID = async (uid) => {
         throw error
     }
 }
+
 module.exports = {
     findByEmail,
     createUser,
     saveToken,
     getTokenByUID,
     deleteTokensByUID,
-    updateUserByEmail
+    UpdateUserByEmail
 }

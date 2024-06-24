@@ -1,13 +1,29 @@
 const mongoose = require('mongoose')
-const UserModel = require('./user.model')
-const TokenModel = require('./token.model')
-const todoModel = require('./todo.model')
 
-const db = {}
-db.mongoose = mongoose;
-db.user = UserModel;
-db.token = TokenModel;
-db.todo = todoModel;
+const { Schema, Collection } = mongoose
 
+const TodoSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    isCompleted: {
+        type: Boolean,
+        default: false
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    todoList: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'todoItem'
+        }
+    ]
+}, { timestamps: true })
 
-module.exports = db
+const TodoModel = mongoose.model('todo', TodoSchema)
+
+module.exports = TodoModel
+

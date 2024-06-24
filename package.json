@@ -13,6 +13,7 @@
   "author": "Abdul Fatah",
   "license": "ISC",
   "dependencies": {
+    "@bull-board/express": "^5.20.4",
     "bcrypt": "^5.1.1",
     "bull": "^4.13.0",
     "cors": "^2.8.5",

@@ -1,4 +1,6 @@
+const { config } = require('../configs/server.config.js')
 const nodemailer = require('nodemailer')
+
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -6,15 +8,15 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: true,
     auth: {
-        user: 'studysaylani123@gmail.com',
-        pass: 'gepz dnub bdqz hcnt'
+        user: config.userGmailKey,
+        pass: config.gmailPassKey
     }
 })
 
 const sendEmail = async (data) => {
     try {
         const response = await transporter.sendMail({
-            from: 'studysaylani123@gmail.com',
+            from: config.userGmailKey,
             ...data
         })
 

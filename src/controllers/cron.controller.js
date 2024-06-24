@@ -1,27 +1,35 @@
-const cronManager = require("../jobs/inedx")
+const cronManager = require("../jobs")
 
 const startJob = async (req, res) => {
     try {
         const { jobName } = req.body
+
         const job = cronManager.get(jobName)
         if (!job) {
-            return res.status(404).json({ success: false, message: 'job not found', data: null })
+            return res.status(404).json({ success: false, message: `job not fount with name ${jobName}`, data: null })
         }
 
+
         job.start()
-        return res.status(200).json({ success: true, message: 'Success', data: null })
+        return res.status(200).json({ success: true, message: 'success', data: null })
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({ success: false, message: 'something went wrong', data: null })
     }
 }
-
 const stopJob = async (req, res) => {
     try {
         const { jobName } = req.body
-        const job = cronManager
-        return
-    } catch (error) {
 
+        const job = cronManager.get(jobName)
+        if (!job) {
+            return res.status(404).json({ success: false, message: `job not fount with name ${jobName}`, data: null })
+        }
+
+
+        job.stop()
+        return res.status(200).json({ success: true, message: 'success', data: null })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'something went wrong', data: null })
     }
 }
 

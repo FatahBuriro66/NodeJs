@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose
+const { Schema, Collection } = mongoose
 
-const TodoSchema = new Schema({
+const TodoItemsSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -11,16 +11,13 @@ const TodoSchema = new Schema({
         type: Boolean,
         default: false
     },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId(),
-        ref: 'User'
-    }
+    // tocoCid: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'todo'
+    // }
 }, { timestamps: true })
 
-const TodoModel = mongoose.model('Todo', TodoSchema)
+const TodoItemsModel = mongoose.model('todoItem', TodoItemsSchema)
 
-//User  = users // Default Nature
+module.exports = TodoItemsModel
 
-model.exports = {
-    TodoModel
-}

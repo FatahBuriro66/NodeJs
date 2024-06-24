@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { config } = require('../Configs/server.config.js')
+const { config } = require('../configs/server.config.js')
 
 const checkAuth = (req, res, next) => {
     try {
@@ -15,7 +15,7 @@ const checkAuth = (req, res, next) => {
         return res.status(401).json({ success: false, message: 'unauthorized', data: error })
     }
 }
-    
+
 module.exports = {
     checkAuth
 }

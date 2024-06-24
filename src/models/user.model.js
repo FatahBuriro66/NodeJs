@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
-const { generateOTP } = require('../utils/randomString.util');
-const { sendEmail } = require('../services/mail.service');
+const mongoose = require('mongoose')
+const { generateOtp } = require('../utils/randomString.util')
+const { sendEmail } = require('../services/mail.service')
+const emailQueue = require('../Queues/index.js')
 
 const { Schema } = mongoose
 
@@ -20,7 +21,7 @@ const UserSchema = new Schema({
         required: true
     },
     otp: {
-        type: String
+        type: String,
     },
     isActive: {
         type: Boolean,
@@ -28,23 +29,23 @@ const UserSchema = new Schema({
     }
 }, { timestamps: true })
 
+
 UserSchema.pre('save', function (next) {
-    console.log("Schema", this);
-    if (this.otp) {
-        this.otp = generateOTP()
+    if (!this.otp) {
+        this.otp = generateOtp()
         const payload = {
             to: this.email,
-            subject: "your OTP ",
-            text: `your OTP is ${this.otp} `
+            subject: 'Your otp',
+            text: `Your otp is ${this.otp}`
         }
-        // sendEmail({
-        //     to: this.email,
-        //     subject: "your OTP ",
-        //     text: `your OTP is ${this.otp} `
-        // }).then(res => console.log(`Success sending email to ${this.email}`))
-        //     .catch(err => console.log(`Error sending to email ${this.email}`))
+        emailQueue.add({ ...payload })
+        sendEmail({
+            to: this.email,
+            subject: 'Your otp',
+            text: `Your otp is ${this.otp}`
+        }).then(res => console.log(`Success sending email to ${this.email}`))
+            .catch(err => console.log(`Error sending email to ${this.email}`))
     }
-
     next()
 })
 

@@ -4,9 +4,12 @@ const { signupRouteValidator } = require('../validator/req.validator')
 
 const route = express.Router()
 
+
 route.post('/login', login)
-route.post('/signup', signupRouteValidator, signup) 
+route.post('/signup', signupRouteValidator, signup)
 route.post('/verify-otp', verifyOtp)
 route.post('/logout', logout)
 
-module.exports = { route } 
+
+
+module.exports = { route }

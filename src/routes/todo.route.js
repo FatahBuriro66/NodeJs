@@ -9,7 +9,7 @@ route.post('/create-todo', createTodo)
 route.get('/get-todo-item/:todoId', getTodoItem)
 route.post('/list-item/:todoId/create', createTodoListItem)
 
-module.exports = { route } 
+module.exports = { route }
 
 // class assignment
 // todo name 15 characters ,no speical ch   aracter , min 5 - 15char
